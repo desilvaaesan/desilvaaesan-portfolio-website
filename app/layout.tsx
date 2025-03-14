@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "./provider.tsx"
 
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+// Load Inter font and set a CSS variable
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Aesan De Silva ",
+  title: "Aesan De Silva",
   description: "Your Vision, My Code",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        {children}
-      </body>
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased"> 
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
     </html>
   );
 }
